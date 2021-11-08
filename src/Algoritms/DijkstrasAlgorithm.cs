@@ -13,18 +13,23 @@ namespace Algoritms
 
             while (from != to)
             {
+                // collect visited nodes
                 travelledNodes.Add(from);
 
                 for (var i = 0; i < map.GetLength(1); i++)
                 {
+                    // if node does not have connection or already visited move to next
                     if (map[from, i] == 0 || travelledNodes.Contains(i))
                         continue;
-
+                    
+                    // cumulative sum of path value up to next node 
                     var nextNodePathValue = map[from, i];
                     var nextNodePathValueSum = adjNodes[from] + nextNodePathValue;
 
+                    // check if cumulative sum of the next node path is cached
                     if (adjNodes.ContainsKey(i))
                     {
+                        // if calculated value is higher than cached one move to next else update cached value
                         if (nextNodePathValueSum >= adjNodes[i])
                             continue;
                         else
@@ -34,6 +39,7 @@ namespace Algoritms
                         adjNodes.Add(i, nextNodePathValueSum);
                 }
 
+                // set current node which has minumum cumulative path value and skip already visited nodes  
                 var minValueOfTravelledNode = -1;
                 foreach (var node in adjNodes)
                 {
@@ -47,6 +53,7 @@ namespace Algoritms
                 }
             }
 
+            // get the value of target node
             var min = adjNodes[from];
 
             return min;
