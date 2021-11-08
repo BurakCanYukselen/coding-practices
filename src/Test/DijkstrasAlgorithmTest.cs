@@ -21,9 +21,9 @@ namespace Test
 
         [Theory]
         [InlineData(0, 5, 11)] // A to F
-        [InlineData(1, 6, 10)] // A to F
-        [InlineData(2, 5, 12)] // A to F
-        [InlineData(5, 4, 4)] // A to F
+        [InlineData(1, 6, 10)] // B to G
+        [InlineData(2, 5, 12)] // C to F
+        [InlineData(5, 4, 4)] // F to E
         public void Test(int from, int to, int expected)
         {
             // Arrange
