@@ -24,13 +24,13 @@ namespace Test
         [InlineData(1, 6, 10)] // B to G
         [InlineData(2, 5, 12)] // C to F
         [InlineData(5, 4, 4)] // F to E
-        public void Test(int from, int to, int expected)
+        public void ShortestPathTest(int from, int to, int expected)
         {
             // Arrange
-            var algo = new DijkstrasAlgorithm();
+            var algo = new Dijkstras();
 
             // Act
-            var sut = algo.Dijkstras(Graph, from, to);
+            var sut = algo.ShortestPath(Graph, from, to);
 
             // Assert
             Assert.Equal(expected, sut);

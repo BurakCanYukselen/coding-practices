@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Algoritms
 {
-    public class DijkstrasAlgorithm
+    public class Dijkstras
     {
-        public int Dijkstras(int[,] map, int from, int to)
+        public int ShortestPath(int[,] map, int from, int to)
         {
             var adjNodes = new Dictionary<int, int>();
             adjNodes.Add(from, 0);
@@ -54,9 +54,9 @@ namespace Algoritms
             }
 
             // get the value of target node
-            var min = adjNodes[from];
+            var shortestPath = adjNodes[from];
 
-            return min;
+            return shortestPath;
         }
     }
 }
