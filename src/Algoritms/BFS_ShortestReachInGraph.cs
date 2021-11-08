@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Algoritms.BFS
+namespace Algoritms
 {
-    public class ShortestReachInGraph
+    public class BFS_ShortestReachInGraph
     {
         public int PathWeight { get; set; }
 
@@ -16,7 +14,7 @@ namespace Algoritms.BFS
             public int StartingNodeIndex { get; set; }
         }
 
-        public ShortestReachInGraph(int pathWeight)
+        public BFS_ShortestReachInGraph(int pathWeight)
         {
             this.PathWeight = pathWeight;
         }
@@ -68,13 +66,7 @@ namespace Algoritms.BFS
 
             return graphList;
         }
-
-
-        // 0 6 0 0 0 
-        // 6 0 0 6 0 *
-        // 0 0 0 0 0
-        // 0 6 0 0 6
-        // 0 0 0 6 0
+        
         public List<string> Path(List<GraphMatrix> graphs)
         {
             var output = new List<string>();

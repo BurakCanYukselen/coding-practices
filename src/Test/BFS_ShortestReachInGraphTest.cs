@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Algoritms.BFS;
+using Algoritms;
 using Xunit;
 
 namespace Test.BFS
@@ -81,17 +81,17 @@ namespace Test.BFS
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
-    public class ShortestReachInGraphTest
+    public class BFS_ShortestReachInGraphTest
     {
         [Theory]
         [ClassData(typeof(TestCaseGenerator))]
-        public void ShortestReachInGraphTest1(List<TestCase> testCases)
+        public void ShortestReachInGraphTest(List<TestCase> testCases)
         {
             var results = new List<bool>();
             foreach (var testCase in testCases)
             {
                 // Arrange
-                var algo = new ShortestReachInGraph(6);
+                var algo = new BFS_ShortestReachInGraph(6);
                 var graph = algo.GenerateGraphMatrixes(testCase.Input);
 
                 // Act
