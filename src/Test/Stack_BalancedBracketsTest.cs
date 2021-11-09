@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Test
 {
-    public class BalancedBracketsTest
+    public class Stack_BalancedBracketsTest
     {
         [Theory]
         [ClassData(typeof(TestCaseGenerator))]
@@ -16,7 +16,7 @@ namespace Test
             foreach (var testCase in testCases)
             {
                 // Arrange
-                var algo = new BalancedBrackets();
+                var algo = new Stack_BalancedBrackets();
 
                 // Act
                 var sut = algo.CheckBracketBalance_V1(testCase.Inputs);
@@ -43,7 +43,7 @@ namespace Test
             foreach (var testCase in testCases)
             {
                 // Arrange
-                var algo = new BalancedBrackets();
+                var algo = new Stack_BalancedBrackets();
 
                 // Act
                 var sut = algo.CheckBracketBalance_V2(testCase.Inputs);
@@ -61,7 +61,6 @@ namespace Test
             // Assert
             Assert.True(resultList.All(p => p == true));
         }
-
 
         public class TestCaseGenerator : IEnumerable<object[]>
         {

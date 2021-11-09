@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Algoritms
 {
-    public class BalancedBrackets
+    public class Stack_BalancedBrackets
     {
         private Dictionary<char, char> BracketPairs => new Dictionary<char, char>
         {
