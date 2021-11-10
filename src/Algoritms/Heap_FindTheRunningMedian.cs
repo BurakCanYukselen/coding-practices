@@ -36,25 +36,25 @@ namespace Algoritms
 
         private double GetMedian(SortedList<int, int> highers, SortedList<int, int> lowers)
         {
-            var biggers = highers.Count > lowers.Count ? highers : lowers;
-            var smallers = highers.Count > lowers.Count ? lowers : highers;
+            var bigger = highers.Count > lowers.Count ? highers : lowers;
+            var smaller = highers.Count > lowers.Count ? lowers : highers;
 
-            if (biggers.Count == smallers.Count)
-                return ((double)biggers.ElementAt(0).Value + smallers.ElementAt(0).Value) / 2;
+            if (bigger.Count == smaller.Count)
+                return ((double)bigger.ElementAt(0).Value + smaller.ElementAt(0).Value) / 2;
             else
-                return biggers.ElementAt(0).Value;
+                return bigger.ElementAt(0).Value;
         }
 
         private void Balance(SortedList<int, int> highers, SortedList<int, int> lowers)
         {
-            var biggers = highers.Count > lowers.Count ? highers : lowers;
-            var smallers = highers.Count > lowers.Count ? lowers : highers;
+            var bigger = highers.Count > lowers.Count ? highers : lowers;
+            var smaller = highers.Count > lowers.Count ? lowers : highers;
 
-            if (biggers.Count - smallers.Count >= 2)
+            if (bigger.Count - smaller.Count >= 2)
             {
-                var extra = biggers.ElementAt(0).Value;
-                biggers.RemoveAt(0);
-                smallers.Add(extra, extra);
+                var extra = bigger.ElementAt(0).Value;
+                bigger.RemoveAt(0);
+                smaller.Add(extra, extra);
             }
         }
 

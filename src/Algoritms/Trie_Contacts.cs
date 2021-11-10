@@ -76,7 +76,13 @@ namespace Algoritms
 
             return ContractNumber(currentNode);
         }
-
+        
+        //  e
+        // *d
+        //  d w
+        //  i   a
+        // *e    r
+        //       *d
         private int ContractNumber(Node node)
         {
             var currentNode = node;

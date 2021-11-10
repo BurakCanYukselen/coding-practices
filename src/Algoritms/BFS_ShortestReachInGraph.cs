@@ -126,7 +126,7 @@ namespace Algoritms
                     from = minIndex;
                 }
 
-                // create output string in descending order
+                // create output string in ascending order
                 var path = string.Empty;
                 for (int i = 0; i < graph.NodeCount; i++)
                     if (adjNodes.ContainsKey(i))

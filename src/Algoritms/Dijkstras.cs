@@ -40,14 +40,14 @@ namespace Algoritms
                 }
 
                 // set current node which has minumum cumulative path value and skip already visited nodes  
-                var minValueOfTravelledNode = -1;
+                var minValueOfAdjacentNode = -1;
                 foreach (var node in adjNodes)
                 {
                     if (travelledNodes.Contains(node.Key))
                         continue;
-                    if (minValueOfTravelledNode < 0 || minValueOfTravelledNode > node.Value)
+                    if (minValueOfAdjacentNode < 0 || minValueOfAdjacentNode > node.Value)
                     {
-                        minValueOfTravelledNode = node.Value;
+                        minValueOfAdjacentNode = node.Value;
                         from = node.Key;
                     }
                 }
