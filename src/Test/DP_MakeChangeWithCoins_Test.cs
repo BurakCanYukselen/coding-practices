@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Test
 {
-    public class DP_MakeChangeWithCoins_Test
+    public class DP_MakeChangeWithCoinsTest
     {
         [Theory]
         [ClassData(typeof(TestCaseGenerator))]
@@ -26,31 +26,31 @@ namespace Test
             // Assert
             Assert.True(results.All(p => p == true));
         }
-    }
 
-    public class TestCaseGenerator : IEnumerable<object[]>
-    {
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        public IEnumerator<object[]> GetEnumerator()
+        public class TestCaseGenerator : IEnumerable<object[]>
         {
-            yield return new object[]
-            {
-                new List<TestCase>()
-                {
-                    new TestCase()
-                    {
-                        Input = new KeyValuePair<int, int[]>(7, new[] { 1, 2, 5 }),
-                        Output = 6
-                    },
-                }
-            };
-        }
-    }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public class TestCase
-    {
-        public KeyValuePair<int, int[]> Input { get; set; }
-        public int Output { get; set; }
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[]
+                {
+                    new List<TestCase>()
+                    {
+                        new TestCase()
+                        {
+                            Input = new KeyValuePair<int, int[]>(7, new[] { 1, 2, 5 }),
+                            Output = 6
+                        },
+                    }
+                };
+            }
+        }
+
+        public class TestCase
+        {
+            public KeyValuePair<int, int[]> Input { get; set; }
+            public int Output { get; set; }
+        }
     }
 }
