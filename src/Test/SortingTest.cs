@@ -84,25 +84,6 @@ namespace Test
             Assert.True(results.All(p => p == true));
         }
 
-        [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
-        public void HeapSortTest(List<TestCase> testCases)
-        {
-            var results = new List<bool>();
-            foreach (var testCase in testCases)
-            {
-                // Arrange
-                var algo = new Sorting();
-
-                // Act
-                var sut = algo.HeapSort(testCase.Input);
-                results.Add(testCase.Output == sut);
-            }
-
-            // Assert
-            Assert.True(results.All(p => p == true));
-        }
-
         public class TestCaseGenerator : IEnumerable<object[]>
         {
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -113,7 +94,6 @@ namespace Test
                 {
                     new List<TestCase>()
                     {
-                        new TestCase(new int[] { 2, 5, 8, 9, 7, 6, 4, 3 }, "23456789"),
                         new TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, "123456"),
                         new TestCase(new int[] { 1, 0, 5, 2, 4, 3 }, "012345"),
                         new TestCase(new int[] { 1, 1, 1, 1, 1, 1 }, "111111"),
