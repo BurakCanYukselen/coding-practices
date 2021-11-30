@@ -25,11 +25,10 @@ namespace Algoritms
             root = new Node('-');
         }
 
-        public int[] Operate(string[] inputs)
+        public string Operate(string[] inputs)
         {
-            var operationCount = int.Parse(inputs[0]);
             var countOfStartsWith = new List<int>();
-            for (int i = 1; i <= operationCount; i++)
+            for (int i = 0; i < inputs.Length; i++)
             {
                 var input = inputs[i].Split(" ", StringSplitOptions.TrimEntries);
                 var operation = input[0];
@@ -46,7 +45,7 @@ namespace Algoritms
                 }
             }
 
-            return countOfStartsWith.ToArray();
+            return string.Join(",", countOfStartsWith.ToArray());
         }
 
         private void AddContact(string contract)
@@ -76,7 +75,7 @@ namespace Algoritms
 
             return ContractNumber(currentNode);
         }
-        
+
         //  e
         // *d
         //  d w

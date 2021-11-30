@@ -6,90 +6,25 @@ using Xunit;
 
 namespace Test
 {
-    public class Trie_ContactsTest
+    public class Trie_ContactsTest : TestBase<string[], string>
     {
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
-        public void ContactsTest(List<TestCase> testCases)
+        [MemberData(nameof(ContactsTestCases))]
+        public void ContactsTest(TestCase testCase)
         {
-            var results = new List<bool>();
-            foreach (var testCase in testCases)
-            {
-                // Arrange
-                var algo = new Trie_Contacts();
+            // Arrange
+            var algo = new Trie_Contacts();
 
-                // Act
-                var sut = algo.Operate(testCase.Inputs);
-                var result = true;
-                for (int i = 0; i < testCase.Outputs.Length; i++)
-                    if (testCase.Outputs[i] != sut[i])
-                    {
-                        result = false;
-                        break;
-                    }
-
-                results.Add(result);
-            }
+            // Act
+            var sut = algo.Operate(testCase.Input);
 
             // Assert
-            Assert.True(results.All(p => p == true));
+            Assert.Equal(testCase.Output, sut);
         }
 
-        public class TestCaseGenerator : IEnumerable<object[]>
-        {
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-            public IEnumerator<object[]> GetEnumerator()
-            {
-                yield return new object[]
-                {
-                    new List<TestCase>()
-                    {
-                        new TestCase()
-                        {
-                            Inputs = new string[]
-                            {
-                                "4",
-                                "add hack",
-                                "add hackerrank",
-                                "find hac",
-                                "find hak"
-                            },
-                            Outputs = new int[]
-                            {
-                                2,
-                                0
-                            }
-                        },
-                        new TestCase()
-                        {
-                            Inputs = new string[]
-                            {
-                                "7",
-                                "add ed",
-                                "add eddie",
-                                "add edward",
-                                "find ed",
-                                "add edwina",
-                                "find edw",
-                                "find a"
-                            },
-                            Outputs = new int[]
-                            {
-                                3,
-                                2,
-                                0
-                            }
-                        },
-                    }
-                };
-            }
-        }
-
-        public class TestCase
-        {
-            public string[] Inputs { get; set; }
-            public int[] Outputs { get; set; }
-        }
+        public static IEnumerable<object[]> ContactsTestCases => GenerateData(
+            new TestCase(new string[] { "add hack", "add hackerrank", "find hac", "find hak" }, "2,0"),
+            new TestCase(new string[] { "add ed", "add eddie", "add edward", "find ed", "add edwina", "find edw", "find a" }, "3,2,0")
+        );
     }
 }

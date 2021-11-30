@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Algoritms;
 using Xunit;
 
 namespace Test
 {
-    public class DijkstrasAlgorithmTest
+    public class DijkstrasAlgorithmTest : TestBase<(int from, int to), int>
     {
         public static int[,] Graph => new int[,]
         {
@@ -20,20 +22,28 @@ namespace Test
         };
 
         [Theory]
-        [InlineData(0, 5, 11)] // A to F
-        [InlineData(1, 6, 10)] // B to G
-        [InlineData(2, 5, 12)] // C to F
-        [InlineData(5, 4, 4)] // F to E
-        public void ShortestPathTest(int from, int to, int expected)
+        [MemberData(nameof(ShortestPathTestCases))]
+        public void ShortestPathTest(TestCase testCase)
         {
             // Arrange
             var algo = new Dijkstras();
 
             // Act
-            var sut = algo.ShortestPath(Graph, from, to);
+            var sut = algo.ShortestPath(Graph, testCase.Input.from, testCase.Input.to);
 
             // Assert
-            Assert.Equal(expected, sut);
+            Assert.Equal(testCase.Output, sut);
         }
+
+        public static IEnumerable<object[]> ShortestPathTestCases => GenerateData(
+            // A to F
+            new TestCase((from: 0, to: 5), 11),
+            // B to G
+            new TestCase((from: 1, to: 6), 10),
+            // C to F
+            new TestCase((from: 2, to: 5), 12),
+            // F to E
+            new TestCase((from: 5, to: 4), 4)
+        );
     }
 }

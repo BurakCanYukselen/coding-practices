@@ -6,95 +6,64 @@ using Xunit;
 
 namespace Test
 {
-    public class Tree_HeightOfABinaryTreeTest
+    public class Tree_HeightOfABinaryTreeTest : TestBase<Tree_HeightOfABinaryTree.Node, int>
     {
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
-        public void HeightOfABinaryTreeTest(List<TestCase> testCases)
+        [MemberData(nameof(HeightOfABinaryTreeTestCases))]
+        public void HeightOfABinaryTreeTest(TestCase testCase)
         {
-            var result = new List<bool>();
-            foreach (var testCase in testCases)
-            {
-                // Arrange
-                var algo = new Tree_HeightOfABinaryTree();
+            // Arrange
+            var algo = new Tree_HeightOfABinaryTree();
 
-                // Act
-                var sut = algo.LevelOfDepth(testCase.Input);
-                result.Add(testCase.Output == sut);
-            }
+            // Act
+            var sut = algo.LevelOfDepth(testCase.Input);
 
             // Assert
-            Assert.True(result.All(p => p == true));
+            Assert.Equal(testCase.Output, sut);
         }
 
-        public class TestCase
-        {
-            public Tree_HeightOfABinaryTree.Node Input { get; set; }
-            public int Output { get; set; }
-        }
-
-        public class TestCaseGenerator : IEnumerable<object[]>
-        {
-            public IEnumerator<object[]> GetEnumerator()
+        public static IEnumerable<object[]> HeightOfABinaryTreeTestCases = GenerateData(
+            new TestCase(new Tree_HeightOfABinaryTree.Node()
             {
-                yield return new object[]
+                Left = new Tree_HeightOfABinaryTree.Node()
                 {
-                    new List<TestCase>()
+                    Left = new Tree_HeightOfABinaryTree.Node()
                     {
-                        new TestCase()
+                        Left = new Tree_HeightOfABinaryTree.Node()
+                    }
+                },
+                Right = new Tree_HeightOfABinaryTree.Node()
+                {
+                    Left = new Tree_HeightOfABinaryTree.Node(),
+                    Right = new Tree_HeightOfABinaryTree.Node()
+                    {
+                        Right = new Tree_HeightOfABinaryTree.Node()
                         {
-                            Input = new Tree_HeightOfABinaryTree.Node()
-                            {
-                                Left = new Tree_HeightOfABinaryTree.Node()
-                                {
-                                    Left = new Tree_HeightOfABinaryTree.Node()
-                                    {
-                                        Left = new Tree_HeightOfABinaryTree.Node()
-                                    }
-                                },
-                                Right = new Tree_HeightOfABinaryTree.Node()
-                                {
-                                    Left = new Tree_HeightOfABinaryTree.Node(),
-                                    Right = new Tree_HeightOfABinaryTree.Node()
-                                    {
-                                        Right = new Tree_HeightOfABinaryTree.Node()
-                                        {
-                                            Right = new Tree_HeightOfABinaryTree.Node()
-                                        }
-                                    }
-                                }
-                            },
-                            Output = 4,
-                        },
-                        new TestCase()
-                        {
-                            Input = new Tree_HeightOfABinaryTree.Node()
-                            {
-                                Left = new Tree_HeightOfABinaryTree.Node()
-                                {
-                                    Left = new Tree_HeightOfABinaryTree.Node()
-                                    {
-                                        Right = new Tree_HeightOfABinaryTree.Node()
-                                        {
-                                            Right = new Tree_HeightOfABinaryTree.Node()
-                                            {
-                                                Left = new Tree_HeightOfABinaryTree.Node()
-                                            }
-                                        }
-                                    }
-                                },
-                                Right = new Tree_HeightOfABinaryTree.Node()
-                                {
-                                    Left = new Tree_HeightOfABinaryTree.Node()
-                                }
-                            },
-                            Output = 5
+                            Right = new Tree_HeightOfABinaryTree.Node()
                         }
-                    },
-                };
-            }
-
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        }
+                    }
+                }
+            }, 4),
+            new TestCase(new Tree_HeightOfABinaryTree.Node()
+            {
+                Left = new Tree_HeightOfABinaryTree.Node()
+                {
+                    Left = new Tree_HeightOfABinaryTree.Node()
+                    {
+                        Right = new Tree_HeightOfABinaryTree.Node()
+                        {
+                            Right = new Tree_HeightOfABinaryTree.Node()
+                            {
+                                Left = new Tree_HeightOfABinaryTree.Node()
+                            }
+                        }
+                    }
+                },
+                Right = new Tree_HeightOfABinaryTree.Node()
+                {
+                    Left = new Tree_HeightOfABinaryTree.Node()
+                }
+            }, 5)
+        );
     }
 }

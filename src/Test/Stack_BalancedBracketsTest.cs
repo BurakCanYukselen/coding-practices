@@ -6,97 +6,40 @@ using Xunit;
 
 namespace Test
 {
-    public class Stack_BalancedBracketsTest
+    public class Stack_BalancedBracketsTest : TestBase<string, string>
     {
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
-        public void BalancedBrackets_v1(List<TestCase> testCases)
+        [MemberData(nameof(BalancedBracketsTestCases))]
+        public void BalancedBrackets_v1(TestCase testCase)
         {
-            var resultList = new List<bool>();
-            foreach (var testCase in testCases)
-            {
-                // Arrange
-                var algo = new Stack_BalancedBrackets();
+            // Arrange
+            var algo = new Stack_BalancedBrackets();
 
-                // Act
-                var sut = algo.CheckBracketBalance_V1(testCase.Inputs);
-                var result = true;
-                for (int i = 0; i < testCase.Outputs.Length; i++)
-                    if (testCase.Outputs[i] != sut[i])
-                    {
-                        result = false;
-                        break;
-                    }
-
-                resultList.Add(result);
-            }
+            // Act
+            var sut = algo.CheckBracketBalance_V1(testCase.Input);
 
             // Assert
-            Assert.True(resultList.All(p => p == true));
+            Assert.Equal(testCase.Output, sut);
         }
 
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
-        public void BalancedBrackets_v2(List<TestCase> testCases)
+        [MemberData(nameof(BalancedBracketsTestCases))]
+        public void BalancedBrackets_v2(TestCase testCase)
         {
-            var resultList = new List<bool>();
-            foreach (var testCase in testCases)
-            {
-                // Arrange
-                var algo = new Stack_BalancedBrackets();
+            // Arrange
+            var algo = new Stack_BalancedBrackets();
 
-                // Act
-                var sut = algo.CheckBracketBalance_V2(testCase.Inputs);
-                var result = true;
-                for (int i = 0; i < testCase.Outputs.Length; i++)
-                    if (testCase.Outputs[i] != sut[i])
-                    {
-                        result = false;
-                        break;
-                    }
-
-                resultList.Add(result);
-            }
+            // Act
+            var sut = algo.CheckBracketBalance_V2(testCase.Input);
 
             // Assert
-            Assert.True(resultList.All(p => p == true));
+            Assert.Equal(testCase.Output, sut);
         }
 
-        public class TestCaseGenerator : IEnumerable<object[]>
-        {
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-            public IEnumerator<object[]> GetEnumerator()
-            {
-                yield return new object[]
-                {
-                    new List<TestCase>()
-                    {
-                        new TestCase()
-                        {
-                            Inputs = new string[]
-                            {
-                                "3",
-                                "{[()]}",
-                                "{[(])}",
-                                "{{[[(())]]}}"
-                            },
-                            Outputs = new string[]
-                            {
-                                "YES",
-                                "NO",
-                                "YES"
-                            }
-                        },
-                    }
-                };
-            }
-        }
-
-        public class TestCase
-        {
-            public string[] Inputs { get; set; }
-            public string[] Outputs { get; set; }
-        }
+        public static IEnumerable<object[]> BalancedBracketsTestCases => GenerateData(
+            new TestCase("{[()]}", "YES"),
+            new TestCase("{[(])}", "NO"),
+            new TestCase("{{[[(())]]}}", "YES")
+        );
     }
 }

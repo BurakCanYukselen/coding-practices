@@ -12,88 +12,54 @@ namespace Algoritms
             { '(', ')' },
         };
 
-        public string[] CheckBracketBalance_V1(string[] input)
+        public string CheckBracketBalance_V1(string input)
         {
-            var numOfStringsOfBrackets = int.Parse(input[0]);
-            var output = new string[numOfStringsOfBrackets];
-            for (var i = 1; i <= numOfStringsOfBrackets; i++)
+            var brackets = input.ToCharArray();
+            if (brackets.Length % 2 != 0)
+                return "NO";
+
+            var openBracketQueue = new Queue<char>();
+            var closeBracketStack = new Stack<char>();
+            foreach (var bracket in brackets)
             {
-                var brackets = input[i].ToCharArray();
-                if (brackets.Length % 2 != 0)
-                {
-                    output[i - 1] = "NO";
-                    continue;
-                }
-
-                var openBracketQueue = new Queue<char>();
-                var closeBracketStack = new Stack<char>();
-                foreach (var bracket in brackets)
-                {
-                    if (BracketPairs.ContainsKey(bracket))
-                        openBracketQueue.Enqueue(bracket);
-                    else
-                        closeBracketStack.Push(bracket);
-                }
-
-                var isBalanced = true;
-                while (openBracketQueue.Any() && closeBracketStack.Any())
-                {
-                    var openBracket = openBracketQueue.Dequeue();
-                    var closeBracket = closeBracketStack.Pop();
-                    if (BracketPairs[openBracket] != closeBracket)
-                    {
-                        isBalanced = false;
-                        break;
-                    }
-                }
-
-                if (isBalanced)
-                    output[i - 1] = "YES";
+                if (BracketPairs.ContainsKey(bracket))
+                    openBracketQueue.Enqueue(bracket);
                 else
-                    output[i - 1] = "NO";
+                    closeBracketStack.Push(bracket);
             }
 
-            return output;
+            while (openBracketQueue.Any() && closeBracketStack.Any())
+            {
+                var openBracket = openBracketQueue.Dequeue();
+                var closeBracket = closeBracketStack.Pop();
+                if (BracketPairs[openBracket] != closeBracket)
+                    return "NO";
+            }
+
+            return "YES";
         }
 
-        public string[] CheckBracketBalance_V2(string[] input)
+        public string CheckBracketBalance_V2(string input)
         {
-            var numOfStringsOfBrackets = int.Parse(input[0]);
-            var output = new string[numOfStringsOfBrackets];
-            for (var i = 1; i <= numOfStringsOfBrackets; i++)
+            var brackets = input.ToCharArray();
+            if (brackets.Length % 2 != 0)
+                return "NO";
+
+            var bracketStack = new Stack<char>();
+            foreach (var bracket in brackets)
             {
-                var brackets = input[i].ToCharArray();
-                if (brackets.Length % 2 != 0)
-                {
-                    output[i - 1] = "NO";
-                    continue;
-                }
-
-                var bracketStack = new Stack<char>();
-                var isBalanced = true;
-                foreach (var bracket in brackets)
-                {
-                    if (BracketPairs.ContainsKey(bracket))
-                        bracketStack.Push(bracket);
-                    else
-                    {
-                        var openBracket = bracketStack.Pop();
-                        var closeBracket = BracketPairs[openBracket];
-                        if (closeBracket != bracket)
-                        {
-                            isBalanced = false;
-                            break;
-                        }
-                    }
-                }
-
-                if (isBalanced)
-                    output[i - 1] = "YES";
+                if (BracketPairs.ContainsKey(bracket))
+                    bracketStack.Push(bracket);
                 else
-                    output[i - 1] = "NO";
+                {
+                    var openBracket = bracketStack.Pop();
+                    var closeBracket = BracketPairs[openBracket];
+                    if (closeBracket != bracket)
+                        return "NO";
+                }
             }
 
-            return output;
+            return "YES";
         }
     }
 }

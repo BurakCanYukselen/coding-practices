@@ -7,14 +7,12 @@ namespace Algoritms
 {
     public class Stacks_PoisonousPlantsPoisonousPlants
     {
-        public int GetTheDay(string[] inputs)
+        public int GetTheDay(int[] inputs)
         {
-            var plantAmount = int.Parse(inputs[0]);
-            var pesticideAmounts = inputs[1].Split(' ', StringSplitOptions.TrimEntries).Select(p => int.Parse(p)).ToList();
-            var pesticideStack = GetPesticideStack(pesticideAmounts);
+            var pesticideStack = GetPesticideStack(inputs);
 
             var day = 1;
-            for (int i = 0; i < plantAmount; i++)
+            for (int i = 0; i < inputs.Length; i++)
             {
                 List<int> diedPlants = GetDiedPlants(pesticideStack);
                 if (!diedPlants.Any())

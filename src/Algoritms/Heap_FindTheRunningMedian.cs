@@ -17,21 +17,20 @@ namespace Algoritms
             public int Compare(int x, int y) => x.CompareTo(y);
         }
 
-        public double[] GetRunningMedian(int[] inputs)
+        public string GetRunningMedian(int[] inputs)
         {
-            var elementNumber = inputs[0];
             var highers = new SortedList<int, int>(new AscendingOrder());
             var lowers = new SortedList<int, int>(new DescendingOrder());
-            var medians = new double [elementNumber];
+            var medians = new double [inputs.Length];
 
-            for (int i = 1; i <= elementNumber; i++)
+            for (int i = 0; i < inputs.Length; i++)
             {
                 AddNumber(inputs[i], highers, lowers);
                 Balance(highers, lowers);
-                medians[i - 1] = GetMedian(highers, lowers);
+                medians[i] = GetMedian(highers, lowers);
             }
 
-            return medians;
+            return string.Join(",", medians);
         }
 
         private double GetMedian(SortedList<int, int> highers, SortedList<int, int> lowers)

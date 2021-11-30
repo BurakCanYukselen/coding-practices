@@ -6,10 +6,10 @@ using Xunit;
 
 namespace Test
 {
-    public class SortingTest
+    public class SortingTest : TestBase<int[], string>
     {
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
+        [MemberData(nameof(SortingTestCases))]
         public void SelectiveSortTest(List<TestCase> testCases)
         {
             var results = new List<bool>();
@@ -28,7 +28,7 @@ namespace Test
         }
 
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
+        [MemberData(nameof(SortingTestCases))]
         public void BubbleSortTest(List<TestCase> testCases)
         {
             var results = new List<bool>();
@@ -47,7 +47,7 @@ namespace Test
         }
 
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
+        [MemberData(nameof(SortingTestCases))]
         public void InsertionSortTest(List<TestCase> testCases)
         {
             var results = new List<bool>();
@@ -66,7 +66,7 @@ namespace Test
         }
 
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
+        [MemberData(nameof(SortingTestCases))]
         public void MergeSortTest(List<TestCase> testCases)
         {
             var results = new List<bool>();
@@ -84,37 +84,13 @@ namespace Test
             Assert.True(results.All(p => p == true));
         }
 
-        public class TestCaseGenerator : IEnumerable<object[]>
-        {
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-            public IEnumerator<object[]> GetEnumerator()
-            {
-                yield return new object[]
-                {
-                    new List<TestCase>()
-                    {
-                        new TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, "123456"),
-                        new TestCase(new int[] { 1, 0, 5, 2, 4, 3 }, "012345"),
-                        new TestCase(new int[] { 1, 1, 1, 1, 1, 1 }, "111111"),
-                        new TestCase(new int[] { 0, 0, 1, 0, 0, 1 }, "000011"),
-                        new TestCase(new int[] { 1, 0, 0, 1, 1, 1 }, "001111"),
-                        new TestCase(new int[] { 3, 2, 1, 5, 4, 6 }, "123456"),
-                    }
-                };
-            }
-        }
-
-        public class TestCase
-        {
-            public int[] Input { get; set; }
-            public string Output { get; set; }
-
-            public TestCase(int[] input, string output)
-            {
-                Input = input;
-                Output = output;
-            }
-        }
+        public static IEnumerable<object[]> SortingTestCases => GenerateData(
+            new TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, "123456"),
+            new TestCase(new int[] { 1, 0, 5, 2, 4, 3 }, "012345"),
+            new TestCase(new int[] { 1, 1, 1, 1, 1, 1 }, "111111"),
+            new TestCase(new int[] { 0, 0, 1, 0, 0, 1 }, "000011"),
+            new TestCase(new int[] { 1, 0, 0, 1, 1, 1 }, "001111"),
+            new TestCase(new int[] { 3, 2, 1, 5, 4, 6 }, "123456")
+        );
     }
 }

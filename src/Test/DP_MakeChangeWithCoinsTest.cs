@@ -6,51 +6,27 @@ using Xunit;
 
 namespace Test
 {
-    public class DP_MakeChangeWithCoinsTest
+    public class DP_MakeChangeWithCoinsTest : TestBase<KeyValuePair<int, int[]>, int>
     {
         [Theory]
-        [ClassData(typeof(TestCaseGenerator))]
-        public void MakeChangeWithCoins(List<TestCase> testCases)
+        [MemberData(nameof(MakeChangeWithCoinsTestCases))]
+        public void MakeChangeWithCoinsTest(TestCase testCase)
         {
-            var results = new List<bool>();
-            foreach (var testCase in testCases)
-            {
-                // Arrange
-                var algo = new DP_MakeChangeWithCoins();
+            // Arrange
+            var algo = new DP_MakeChangeWithCoins();
 
-                // Act
-                var sut = algo.MakeChangeWithCoins(testCase.Input.Value, testCase.Input.Key);
-                results.Add(testCase.Output == sut);
-            }
+            // Act
+            var sut = algo.MakeChangeWithCoins(testCase.Input.Value, testCase.Input.Key);
 
             // Assert
-            Assert.True(results.All(p => p == true));
+            Assert.Equal(testCase.Output, sut);
         }
 
-        public class TestCaseGenerator : IEnumerable<object[]>
-        {
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-            public IEnumerator<object[]> GetEnumerator()
+        public static IEnumerable<object[]> MakeChangeWithCoinsTestCases => GenerateData(
+            new TestCase()
             {
-                yield return new object[]
-                {
-                    new List<TestCase>()
-                    {
-                        new TestCase()
-                        {
-                            Input = new KeyValuePair<int, int[]>(7, new[] { 1, 2, 5 }),
-                            Output = 6
-                        },
-                    }
-                };
-            }
-        }
-
-        public class TestCase
-        {
-            public KeyValuePair<int, int[]> Input { get; set; }
-            public int Output { get; set; }
-        }
+                Input = new KeyValuePair<int, int[]>(7, new[] { 1, 2, 5 }),
+                Output = 6
+            });
     }
 }
