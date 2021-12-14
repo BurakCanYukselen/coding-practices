@@ -5,6 +5,16 @@ namespace Algoritms
 {
     public class Dijkstras
     {
+        /*
+         *   //A, B, C,  D,  E, F, G
+         *   { 0, 4, 3,  0,  7, 0, 0 }, // A 
+         *   { 4, 0, 6,  5,  0, 0, 0 }, // B 
+         *   { 3, 6, 0,  11, 8, 0, 0 }, // C 
+         *   { 0, 5, 11, 0,  2, 2, 10 }, // D 
+         *   { 7, 0, 8,  2,  0, 0, 5 }, // E 
+         *   { 0, 0, 0,  2,  0, 0, 3 }, // F 
+         *   { 0, 0, 0,  10, 5, 3, 0 }, // G 
+         */
         public int ShortestPath(int[,] map, int from, int to)
         {
             var adjNodes = new Dictionary<int, int>();
@@ -54,7 +64,7 @@ namespace Algoritms
             }
 
             // get the value of target node
-            var shortestPath = adjNodes[from];
+            var shortestPath = adjNodes[to];
 
             return shortestPath;
         }
